@@ -1,12 +1,12 @@
 from machine import Pin
-from time import sleep
+from time import sleep_ms
 import dht
 
+# DHT11 configuration
 DHT_PIN = 22
-MEASURE_INTERVAL = 2 # [s]
+MEASURE_INTERVAL = 2000 # [ms]
 
-led = Pin("LED", Pin.OUT)
-
+# DHT11 API
 def init_sensor():
     return dht.DHT11(Pin(DHT_PIN))
 
@@ -18,6 +18,10 @@ def read_sensor(sensor):
 
     return temperature, humidity
 
+# Pin setup
+led = Pin("LED", Pin.OUT)
+
+# Main application
 def main():
     sensor = init_sensor()
 
@@ -32,6 +36,6 @@ def main():
         except OSError:
             print("DHT11 error")
 
-        sleep(MEASURE_INTERVAL)
+        sleep_ms(MEASURE_INTERVAL)
 
 main()
